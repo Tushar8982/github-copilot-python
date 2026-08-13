@@ -2,6 +2,7 @@ from .validator import SIZE, EMPTY, is_safe, has_conflicts
 
 
 def find_empty_cell(board):
+    """Return the first empty cell location, or None when the board is full."""
     for row in range(SIZE):
         for col in range(SIZE):
             if board[row][col] == EMPTY:
@@ -10,6 +11,7 @@ def find_empty_cell(board):
 
 
 def solve_board(board):
+    """Solve a Sudoku board in place using recursive backtracking."""
     if has_conflicts(board):
         return False
 
@@ -28,6 +30,7 @@ def solve_board(board):
 
 
 def count_solutions(board, limit=2):
+    """Count solutions up to a cap, used to check whether a puzzle is unique."""
     if has_conflicts(board):
         return 0
 
@@ -48,4 +51,5 @@ def count_solutions(board, limit=2):
 
 
 def has_unique_solution(board):
+    """Return True when the board has exactly one valid completion."""
     return count_solutions(board, limit=2) == 1

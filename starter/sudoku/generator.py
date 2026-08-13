@@ -5,10 +5,12 @@ from .validator import is_safe, SIZE, EMPTY
 
 
 def deep_copy(board):
+    """Return a fully independent copy of the Sudoku board."""
     return copy.deepcopy(board)
 
 
 def fill_board(board):
+    """Fill the board using backtracking while keeping each move valid."""
     for row in range(SIZE):
         for col in range(SIZE):
             if board[row][col] == EMPTY:
@@ -25,6 +27,11 @@ def fill_board(board):
 
 
 def remove_cells(board, clues):
+    """Remove values until the puzzle has roughly the requested number of clues.
+
+    Each removal is kept only if the board still has a unique solution; this
+    preserves puzzle validity while making it playable.
+    """
     attempts = SIZE * SIZE - clues
     cells = [(row, col) for row in range(SIZE) for col in range(SIZE)]
     random.shuffle(cells)
@@ -45,6 +52,7 @@ def remove_cells(board, clues):
 
 
 def generate_puzzle(clues=35):
+    """Create a valid Sudoku puzzle and its solved board."""
     board = create_empty_board()
     fill_board(board)
     solution = deep_copy(board)
@@ -54,4 +62,5 @@ def generate_puzzle(clues=35):
 
 
 def create_empty_board():
+    """Build a blank 9x9 board initialized with empty cells."""
     return [[EMPTY for _ in range(SIZE)] for _ in range(SIZE)]

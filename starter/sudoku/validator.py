@@ -3,6 +3,7 @@ EMPTY = 0
 
 
 def is_safe(board, row, col, num):
+    """Check whether placing num at row, col would violate Sudoku rules."""
     for x in range(SIZE):
         if board[row][x] == num or board[x][col] == num:
             return False
@@ -16,6 +17,7 @@ def is_safe(board, row, col, num):
 
 
 def has_conflicts(board):
+    """Return True if the board already violates any row, column, or 3x3 rule."""
     for i in range(SIZE):
         seen = set()
         for j in range(SIZE):
